@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 560" font-family="Segoe UI, system-ui, sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Diagrama de blocos — Praça Comunitária Iluminada</title>
+  <desc id="d">Fontes de energia alimentam 30 luminárias LED; sensores e medidores enviam dados ao nó de telegestão, que aplica a lógica de dimerização e envia telemetria por gateway ao backend, que calcula os indicadores exibidos no dashboard.</desc>
+  <defs>
+    <marker id="seta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#52514e"/>
+    </marker>
+    <marker id="setaE" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c98500"/>
+    </marker>
+    <style>
+      .col { fill: #f4f3ef; stroke: #e1e0d9; }
+      .cap { font-size: 12px; font-weight: 700; fill: #52514e; letter-spacing: .06em; }
+      .box { fill: #ffffff; stroke: #c3c2b7; stroke-width: 1.2; }
+      .boxE { fill: #fff7e6; stroke: #eda100; stroke-width: 1.4; }
+      .boxS { fill: #e8f1fc; stroke: #2a78d6; stroke-width: 1.4; }
+      .boxD { fill: #e6f6ef; stroke: #1baf7a; stroke-width: 1.4; }
+      .h { font-size: 13.5px; font-weight: 600; fill: #0b0b0b; }
+      .s { font-size: 11.5px; fill: #52514e; }
+      .fl { stroke: #52514e; stroke-width: 1.4; fill: none; marker-end: url(#seta); }
+      .fe { stroke: #c98500; stroke-width: 2.4; fill: none; marker-end: url(#setaE); }
+      .fd { stroke: #52514e; stroke-width: 1.4; fill: none; stroke-dasharray: 5 4; marker-end: url(#seta); }
+    </style>
+  </defs>
+  <rect width="1120" height="560" fill="#fcfcfb"/>
+
+  <!-- colunas -->
+  <rect class="col" x="12" y="12" width="200" height="500" rx="10"/>
+  <rect class="col" x="232" y="12" width="210" height="500" rx="10"/>
+  <rect class="col" x="462" y="12" width="200" height="500" rx="10"/>
+  <rect class="col" x="682" y="12" width="200" height="500" rx="10"/>
+  <rect class="col" x="902" y="12" width="206" height="500" rx="10"/>
+  <text class="cap" x="24" y="36">1 · FONTE DE ENERGIA</text>
+  <text class="cap" x="244" y="36">2 · CONSUMO E SENSORES</text>
+  <text class="cap" x="474" y="36">3 · LÓGICA / AUTOMAÇÃO</text>
+  <text class="cap" x="694" y="36">4 · PROCESSAMENTO</text>
+  <text class="cap" x="914" y="36">5 · DASHBOARD</text>
+
+  <!-- 1 fontes -->
+  <rect class="boxE" x="24" y="56" width="176" height="88" rx="8"/>
+  <text class="h" x="34" y="78">Usina FV on-grid</text>
+  <text class="s" x="34" y="96">6,05 kWp (11 × 550 Wp)</text>
+  <text class="s" x="34" y="112">telhado de escola/UBS</text>
+  <text class="s" x="34" y="128">autoconsumo remoto</text>
+
+  <rect class="boxE" x="24" y="166" width="176" height="74" rx="8"/>
+  <text class="h" x="34" y="188">Rede da distribuidora</text>
+  <text class="s" x="34" y="206">medidor bidirecional</text>
+  <text class="s" x="34" y="222">créditos de energia (kWh)</text>
+
+  <rect class="boxE" x="24" y="262" width="176" height="88" rx="8" stroke-dasharray="5 3"/>
+  <text class="h" x="34" y="284">Kit solar off-grid</text>
+  <text class="s" x="34" y="302">(alternativa A2, pontos</text>
+  <text class="s" x="34" y="318">sem rede) 250 Wp +</text>
+  <text class="s" x="34" y="334">LiFePO4 1,28 kWh</text>
+
+  <!-- 2 consumo e sensores -->
+  <rect class="boxE" x="244" y="56" width="186" height="88" rx="8"/>
+  <text class="h" x="254" y="78">30 luminárias LED 80 W</text>
+  <text class="s" x="254" y="96">driver dimerizável</text>
+  <text class="s" x="254" y="112">0–10 V / DALI</text>
+  <text class="s" x="254" y="128">carga: ~621 kWh/mês</text>
+
+  <rect class="boxS" x="244" y="166" width="186" height="60" rx="8"/>
+  <text class="h" x="254" y="188">Sensor de presença PIR</text>
+  <text class="s" x="254" y="206">detecta pedestres (raio 12 m)</text>
+
+  <rect class="boxS" x="244" y="240" width="186" height="60" rx="8"/>
+  <text class="h" x="254" y="262">Relé fotoelétrico / lux</text>
+  <text class="s" x="254" y="280">liga ao anoitecer</text>
+
+  <rect class="boxS" x="244" y="314" width="186" height="60" rx="8"/>
+  <text class="h" x="254" y="336">Medidor no nó (V, I, kWh)</text>
+  <text class="s" x="254" y="354">consumo real por poste</text>
+
+  <rect class="boxS" x="244" y="388" width="186" height="60" rx="8"/>
+  <text class="h" x="254" y="410">Inversor FV (kWh gerado)</text>
+  <text class="s" x="254" y="428">dados via Wi-Fi/API</text>
+
+  <!-- 3 lógica -->
+  <rect class="box" x="474" y="56" width="176" height="186" rx="8"/>
+  <text class="h" x="484" y="78">Nó de telegestão</text>
+  <text class="s" x="484" y="96">(controlador por poste)</text>
+  <text class="s" x="484" y="120">SE noite E hora &lt; 23h</text>
+  <text class="s" x="494" y="136">→ 100%</text>
+  <text class="s" x="484" y="156">SENÃO base 30%</text>
+  <text class="s" x="484" y="176">SE presença → 100%</text>
+  <text class="s" x="494" y="192">por 2 min</text>
+  <text class="s" x="484" y="214">SE corrente = 0 à noite</text>
+  <text class="s" x="494" y="230">→ alerta de falha</text>
+
+  <rect class="box" x="474" y="266" width="176" height="74" rx="8"/>
+  <text class="h" x="484" y="288">Gateway LoRaWAN</text>
+  <text class="s" x="484" y="306">agrega os 30 nós</text>
+  <text class="s" x="484" y="322">envia MQTT a cada 15 min</text>
+
+  <!-- 4 processamento -->
+  <rect class="box" x="694" y="56" width="176" height="74" rx="8"/>
+  <text class="h" x="704" y="78">Ingestão (MQTT/API)</text>
+  <text class="s" x="704" y="96">validação de leituras</text>
+  <text class="s" x="704" y="112">e dados faltantes</text>
+
+  <rect class="box" x="694" y="150" width="176" height="74" rx="8"/>
+  <text class="h" x="704" y="172">Banco de séries</text>
+  <text class="s" x="704" y="190">temporais (kWh por</text>
+  <text class="s" x="704" y="206">poste, por hora)</text>
+
+  <rect class="box" x="694" y="244" width="176" height="104" rx="8"/>
+  <text class="h" x="704" y="266">Motor de cálculo</text>
+  <text class="s" x="704" y="284">sers_calc.py / sers-calc.js</text>
+  <text class="s" x="704" y="302">E = P × t / 1000</text>
+  <text class="s" x="704" y="318">compara com linha de base</text>
+  <text class="s" x="704" y="334">VSAP e premissas</text>
+
+  <!-- 5 dashboard -->
+  <rect class="boxD" x="914" y="56" width="182" height="292" rx="8"/>
+  <text class="h" x="924" y="78">Indicadores</text>
+  <text class="s" x="924" y="104">• Consumo da rede (kWh/mês)</text>
+  <text class="s" x="924" y="126">• Economia energética (%)</text>
+  <text class="s" x="924" y="148">• Redução de custo (R$/mês)</text>
+  <text class="s" x="924" y="170">• Energia renovável (%)</text>
+  <text class="s" x="924" y="192">• CO₂e evitado (kg/ano)</text>
+  <text class="s" x="924" y="214">• Horas dimerizadas/dia</text>
+  <text class="s" x="924" y="236">• Payback e custo 10 anos</text>
+  <text class="s" x="924" y="258">• Pontos ativos / falhas</text>
+  <text class="s" x="924" y="290">Usuários: subprefeitura,</text>
+  <text class="s" x="924" y="306">associação de moradores,</text>
+  <text class="s" x="924" y="322">equipe de manutenção</text>
+
+  <!-- fluxos de energia -->
+  <path class="fe" d="M200,100 L240,100"/>
+  <path class="fe" d="M112,144 L112,162"/>
+  <path class="fe" d="M200,200 C222,200 222,120 240,120"/>
+  <path class="fe" d="M200,306 C228,306 228,134 242,134" stroke-dasharray="6 4"/>
+  <!-- fluxos de dados -->
+  <path class="fl" d="M430,196 L470,170"/>
+  <path class="fl" d="M430,270 L470,190"/>
+  <path class="fl" d="M430,344 L470,214"/>
+  <path class="fl" d="M650,110 C660,110 660,40 440,40 L440,52" />
+  <path class="fl" d="M562,242 L562,262"/>
+  <path class="fl" d="M650,302 C672,302 672,93 690,93"/>
+  <path class="fd" d="M430,418 C680,418 680,110 690,104"/>
+  <path class="fl" d="M782,130 L782,146"/>
+  <path class="fl" d="M782,224 L782,240"/>
+  <path class="fl" d="M870,296 L910,296"/>
+
+  <!-- legenda -->
+  <g transform="translate(24,470)">
+    <line x1="0" y1="10" x2="36" y2="10" stroke="#c98500" stroke-width="2.4"/>
+    <text class="s" x="44" y="14">fluxo de energia</text>
+    <line x1="160" y1="10" x2="196" y2="10" stroke="#52514e" stroke-width="1.4"/>
+    <text class="s" x="204" y="14">fluxo de dados / comando</text>
+    <line x1="380" y1="10" x2="416" y2="10" stroke="#52514e" stroke-width="1.4" stroke-dasharray="5 4"/>
+    <text class="s" x="424" y="14">dados do inversor (nuvem)</text>
+    <rect x="610" y="2" width="16" height="16" rx="3" class="boxS"/>
+    <text class="s" x="632" y="14">sensores</text>
+    <rect x="710" y="2" width="16" height="16" rx="3" class="boxE"/>
+    <text class="s" x="732" y="14">energia</text>
+    <rect x="810" y="2" width="16" height="16" rx="3" class="boxD"/>
+    <text class="s" x="832" y="14">saída no dashboard</text>
+  </g>
+  <text class="s" x="24" y="540">Solução recomendada: A3 (LED + sensores + FV on-grid). A2 (tracejado) é a alternativa renovável off-grid comparada.</text>
+</svg>
