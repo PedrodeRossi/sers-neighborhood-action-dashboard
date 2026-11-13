@@ -2,9 +2,9 @@ GLOBAL SOLUTION 2026.2 - SERS - Neighborhood Action Dashboard (CitizenTech)
 Projeto: Praça Comunitária Iluminada
 
 Integrantes:
-- Nome completo: ____________________  RM: ______
-- Nome completo: ____________________  RM: ______
-- Nome completo: ____________________  RM: ______
+- Nome completo: Pedro Lourenço  RM: 574878
+- Nome completo: Pedro Marcassa de Rossi  RM: 574723
+- Nome completo: Moisés Cristiano Taguchi  RM: 560067
 
 Repositório GitHub: https://github.com/PedrodeRossi/sers-neighborhood-action-dashboard
 Vídeo YouTube (não listado): https://youtu.be/<id>

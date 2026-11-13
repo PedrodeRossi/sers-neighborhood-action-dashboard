@@ -9,9 +9,9 @@
 
 | Nome completo | RM |
 |---|---|
-| _Nome do integrante 1_ | _RM00000_ |
-| _Nome do integrante 2_ | _RM00000_ |
-| _Nome do integrante 3_ | _RM00000_ |
+| Pedro Lourenço | RM574878 |
+| Pedro Marcassa de Rossi | RM574723 |
+| Moisés Cristiano Taguchi | RM560067 |
 
 **Vídeo (YouTube, não listado):** _cole o link aqui_
 **Dashboard online:** https://pedroderossi.github.io/sers-neighborhood-action-dashboard/dashboard/
