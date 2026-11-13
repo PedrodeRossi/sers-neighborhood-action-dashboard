@@ -112,8 +112,70 @@ button { font: inherit; color: inherit; }
 /* ============ Hero ============ */
 .hero { margin-top: 24px; border-radius: 22px; overflow: hidden; position: relative; color: #eef2f8;
   background: radial-gradient(120% 140% at 85% 0%, #1e3a6b 0%, transparent 55%), linear-gradient(160deg, var(--hero-from), var(--hero-to)); }
-.hero-inner { display: grid; grid-template-columns: 1.05fr 1fr; gap: 32px; padding: 40px; position: relative; z-index: 1; }
-.stars { position: absolute; inset: 0; pointer-events: none; opacity: .55; }
+.hero-inner { display: grid; grid-template-columns: 1.25fr .75fr; gap: 32px; padding: 40px 40px 8px; position: relative; z-index: 1; align-items: end; }
+.stars { position: absolute; inset: 0 0 auto 0; height: 60%; pointer-events: none; opacity: .55; }
+/* HUD "agora na praça" */
+.hud { background: rgba(8,16,32,.55); border: 1px solid rgba(255,255,255,.10); border-radius: 18px; padding: 16px 18px; backdrop-filter: blur(6px); }
+.hud-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.hud .clock { font-size: 34px; font-weight: 700; letter-spacing: -.02em; font-variant-numeric: tabular-nums; line-height: 1; }
+.hud .phase { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 99px; background: rgba(255,255,255,.08); color: #cdd8ea; white-space: nowrap; }
+.hud .phase.dim { background: rgba(95,224,176,.15); color: #8ff0c8; }
+.hud dl { display: grid; grid-template-columns: 1fr auto; gap: 7px 12px; margin: 14px 0 0; font-size: 13px; }
+.hud dt { color: #9fb0cc; }
+.hud dd { margin: 0; font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
+.hud .alt-chip { display: inline-flex; align-items: center; gap: 6px; }
+/* cena */
+.scene-wrap { position: relative; margin-top: 10px; }
+#scene { display: block; width: 100%; height: auto; }
+#scene .cone, #scene .pool { transition: opacity .25s linear; }
+#scene .kit, #scene #pvRoof { transition: opacity .6s var(--ease), transform .6s var(--ease); }
+#scene .leg { transform-box: fill-box; transform-origin: 50% 0; animation: walk .7s ease-in-out infinite alternate; }
+#scene .leg.b { animation-direction: alternate-reverse; }
+@keyframes walk { from { transform: rotate(16deg); } to { transform: rotate(-16deg); } }
+#scene .win { animation: twinkle 6s ease-in-out infinite; }
+@keyframes twinkle { 0%, 100% { opacity: .9; } 50% { opacity: .55; } }
+.timeline { display: flex; align-items: center; gap: 14px; padding: 12px 40px 22px; background: #0f1d12; border-top: 1px solid rgba(255,255,255,.06); }
+.play { width: 34px; height: 34px; flex: none; border-radius: 50%; border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.06); color: #eef2f8; display: grid; place-items: center; cursor: pointer; }
+.play svg { width: 14px; height: 14px; }
+.tl-track { flex: 1; position: relative; }
+.tl-track input { width: 100%; --p: 0%; background: linear-gradient(to right, #5fa6f5 var(--p), rgba(255,255,255,.12) var(--p)); }
+.tl-track input::-webkit-slider-thumb { border-color: #5fa6f5; background: #0f1d12; }
+.tl-labels { display: flex; justify-content: space-between; font-size: 11px; color: #8aa392; margin-top: 6px; font-variant-numeric: tabular-nums; }
+.tl-mark { position: absolute; top: -18px; font-size: 10.5px; color: #8ff0c8; transform: translateX(-50%); white-space: nowrap; }
+.tl-mark::after { content: ""; position: absolute; left: 50%; top: 15px; width: 1px; height: 14px; background: rgba(143,240,200,.5); }
+/* mapa */
+.map-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 16px; align-items: start; }
+@media (max-width: 1000px) { .map-grid { grid-template-columns: 1fr; } }
+.map-card { padding: 0; overflow: hidden; position: relative; }
+#map { display: block; width: 100%; height: auto; cursor: crosshair; }
+#map .post { cursor: pointer; }
+#map .post:hover .core, #map .post.sel .core { stroke: #fff; stroke-width: 2.5; }
+#map .halo, #map .halo2 { transition: r .6s var(--ease), fill .4s; }
+.map-tip { position: absolute; pointer-events: none; background: var(--surface); color: var(--ink); border: 1px solid var(--border-strong); border-radius: 10px; padding: 8px 10px; font-size: 12px; box-shadow: var(--shadow); opacity: 0; transition: opacity .15s; white-space: nowrap; }
+.map-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; padding: 12px 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--ink-2); }
+.map-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.map-legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.post-detail h4 { margin: 0; font-size: 16px; }
+.post-detail .pid { font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: .04em; }
+.post-detail dl { display: grid; grid-template-columns: 1fr auto; gap: 8px 12px; margin: 12px 0 0; font-size: 13px; }
+.post-detail dt { color: var(--ink-2); }
+.post-detail dd { margin: 0; font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
+.status-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 99px; }
+.status-pill.ok { background: var(--accent-soft); color: var(--accent); }
+.status-pill.bad { background: rgba(208,59,59,.12); color: #d03b3b; }
+.zones { width: 100%; margin-top: 4px; }
+.zones td, .zones th { padding: 7px 6px; }
+.zbar { height: 6px; border-radius: 99px; background: var(--surface-2); overflow: hidden; min-width: 60px; }
+.zbar span { display: block; height: 100%; background: var(--sel); border-radius: 99px; transition: width .7s var(--ease), background .4s; }
+/* fundo em pedra portuguesa */
+body { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='80'%3E%3Cpath d='M0 20 Q20 0 40 20 T80 20 T120 20 T160 20 M0 60 Q20 40 40 60 T80 60 T120 60 T160 60' fill='none' stroke='%230f172a' stroke-opacity='.035' stroke-width='9'/%3E%3C/svg%3E"); background-attachment: fixed; }
+:root[data-theme="dark"] body { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='80'%3E%3Cpath d='M0 20 Q20 0 40 20 T80 20 T120 20 T160 20 M0 60 Q20 40 40 60 T80 60 T120 60 T160 60' fill='none' stroke='%23ffffff' stroke-opacity='.02' stroke-width='9'/%3E%3C/svg%3E"); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) body { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='80'%3E%3Cpath d='M0 20 Q20 0 40 20 T80 20 T120 20 T160 20 M0 60 Q20 40 40 60 T80 60 T120 60 T160 60' fill='none' stroke='%23ffffff' stroke-opacity='.02' stroke-width='9'/%3E%3C/svg%3E"); } }
+.kicker svg { width: 14px; height: 14px; vertical-align: -2px; margin-right: 6px; }
+.treeline { display: block; width: 100%; height: 70px; margin-top: 56px; color: var(--surface-2); }
+.night-panel { background: linear-gradient(160deg, var(--hero-from), var(--hero-to)); color: #eef2f8; border-color: rgba(255,255,255,.08); }
+.night-panel h3 { color: #eef2f8; }
+.night-panel p { color: #9fb0cc !important; }
 .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
   color: #9fb4d6; }
 .eyebrow .pulse { width: 7px; height: 7px; border-radius: 50%; background: #22b884; box-shadow: 0 0 0 0 rgba(34,184,132,.6); animation: pulse 2.4s infinite; }
@@ -141,7 +203,8 @@ button { font: inherit; color: inherit; }
 #nightSvg.done .draw, #nightSvg.done .fade { animation: none !important; stroke-dashoffset: 0; opacity: 1; }
 @keyframes draw { to { stroke-dashoffset: 0; } }
 @keyframes fade { to { opacity: 1; } }
-@media (max-width: 900px) { .hero-inner { grid-template-columns: 1fr; padding: 28px 22px; } }
+@media (max-width: 900px) { .hero-inner { grid-template-columns: 1fr; padding: 28px 22px 4px; } .timeline { padding: 12px 22px 18px; } }
+@media (max-width: 600px) { .scene-wrap { overflow: hidden; } #scene { width: 180%; margin-left: -40%; } }
 @media (max-width: 520px) { .hero-stats { grid-template-columns: 1fr 1fr; } .hero-stats .hstat:last-child { grid-column: span 2; } }
 
 /* ============ Sections ============ */
@@ -316,7 +379,12 @@ footer { margin: 56px 0 32px; padding-top: 20px; border-top: 1px solid var(--bor
   <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
   <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></symbol>
   <symbol id="i-reset" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></symbol>
-  <symbol id="i-lamp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8M12 22V9"/><path d="M12 9c0-3 2-5 5-5h2"/><path d="M17 4h4l-1 3h-2z"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4.5" width="4" height="15" rx="1"/><rect x="14" y="4.5" width="4" height="15" rx="1"/></symbol>
+  <symbol id="i-tree" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-6"/><path d="M12 16a6 6 0 0 0 4.5-10A5 5 0 0 0 7.5 6 6 6 0 0 0 12 16z"/></symbol>
+  <symbol id="i-bench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18M4 14h16M6 14v6M18 14v6M5 6h14v4H5z"/></symbol>
+  <symbol id="i-lamp"viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8M12 22V9"/><path d="M12 9c0-3 2-5 5-5h2"/><path d="M17 4h4l-1 3h-2z"/></symbol>
 </svg>
 
 <header class="topbar">
@@ -327,6 +395,7 @@ footer { margin: 56px 0 32px; padding-top: 20px; border-top: 1px solid var(--bor
     </a>
     <nav class="nav" aria-label="Seções">
       <a href="#indicadores">Indicadores</a>
+      <a href="#mapa">Mapa</a>
       <a href="#alternativas">Alternativas</a>
       <a href="#energia">Energia e custos</a>
       <a href="#monitoramento">Monitoramento</a>
@@ -356,15 +425,25 @@ footer { margin: 56px 0 32px; padding-top: 20px; border-top: 1px solid var(--bor
           <div class="hstat"><div class="v num" id="hs3">—</div><div class="l">anos de retorno do investimento</div></div>
         </div>
       </div>
-      <div class="night-card">
-        <h3>Uma noite na praça (junho)</h3>
-        <p class="sub">Potência por poste ao longo da noite, em watts</p>
-        <div class="night-legend">
-          <span><i style="background:#9aa1ad"></i>Atual: VSAP 168 W fixo</span>
-          <span><i style="background:#5fa6f5"></i>LED com telegestão</span>
-          <span><i class="area" style="background:rgba(95,224,176,.35)"></i>Energia economizada</span>
-        </div>
-        <svg id="nightSvg" viewBox="0 0 460 210" role="img" aria-label="Gráfico da potência por poste durante a noite: lâmpada atual fixa em 168 watts; LED em 80 watts até 23h e média de 40 watts na madrugada, com picos quando há presença."></svg>
+      <div class="hud" aria-live="off">
+        <div class="hud-top"><span class="clock" id="hClock">18:00</span><span class="phase" id="hPhase">Iluminação plena</span></div>
+        <dl>
+          <dt>Cenário na cena</dt><dd><span class="alt-chip"><span class="dot" id="hDot"></span><span id="hAlt">A3</span></span></dd>
+          <dt>Potência média por poste</dt><dd id="hPow">—</dd>
+          <dt>Praça inteira agora</dt><dd id="hTot">—</dd>
+          <dt>Energia vem de</dt><dd id="hSrc">—</dd>
+        </dl>
+      </div>
+    </div>
+    <div class="scene-wrap">
+      <svg id="scene" viewBox="0 96 1200 304" role="img" aria-label="Ilustração animada da praça à noite: postes de luz, árvores, bancos e uma escola com painéis solares. Um pedestre caminha pela calçada e, depois das 23h, os postes próximos acendem a 100% pelo sensor de presença enquanto os demais ficam dimerizados."></svg>
+    </div>
+    <div class="timeline">
+      <button class="play" id="playBtn" type="button" aria-label="Pausar a simulação da noite"><svg><use id="playIcon" href="#i-pause"/></svg></button>
+      <div class="tl-track">
+        <span class="tl-mark" id="tlMark">23h · dimerização</span>
+        <input type="range" id="tl" min="0" max="12" step="0.01" value="0" aria-label="Hora da noite na simulação">
+        <div class="tl-labels"><span>18h</span><span>20h</span><span>22h</span><span>0h</span><span>2h</span><span>4h</span><span>6h</span></div>
       </div>
     </div>
   </section>
@@ -373,7 +452,7 @@ footer { margin: 56px 0 32px; padding-top: 20px; border-top: 1px solid var(--bor
   <section class="block reveal" id="indicadores" aria-labelledby="kpiH">
     <div class="sec-head">
       <div>
-        <div class="kicker">Indicadores</div>
+        <div class="kicker"><svg><use href="#i-lamp"/></svg>Indicadores</div>
         <h2 id="kpiH">Resultados da alternativa selecionada</h2>
         <p id="kpiSub">Comparados à situação atual (A0).</p>
       </div>
@@ -382,11 +461,41 @@ footer { margin: 56px 0 32px; padding-top: 20px; border-top: 1px solid var(--bor
     <div class="kpis" id="kpis"></div>
   </section>
 
+  <!-- ============ MAPA ============ -->
+  <section class="block reveal" id="mapa" aria-labelledby="mapH">
+    <div class="sec-head">
+      <div>
+        <div class="kicker"><svg><use href="#i-map"/></svg>Mapa da praça</div>
+        <h2 id="mapH">Os 30 postes, um a um</h2>
+        <p>Cada ponto é um poste. O brilho mostra o consumo por noite no cenário selecionado; postes perto da quadra e do parquinho ficam mais tempo a 100% porque há mais movimento. Clique em um poste.</p>
+      </div>
+    </div>
+    <div class="map-grid">
+      <div class="card map-card">
+        <svg id="map" viewBox="0 0 900 560" role="img" aria-label="Mapa visto de cima da praça com calçada em pedra portuguesa, caminhos, coreto central, parquinho, quadra, árvores, bancos e os 30 postes de iluminação."></svg>
+        <div class="map-tip" id="mapTip"></div>
+        <div class="map-legend">
+          <span><i style="background:var(--sel);box-shadow:0 0 0 3px color-mix(in srgb,var(--sel) 30%,transparent)"></i>Poste (brilho = kWh por noite)</span>
+          <span><i style="background:#d03b3b"></i>Alerta de falha</span>
+          <span><i style="background:#2f6b45"></i>Árvores</span>
+          <span><i style="background:#c9b99a;border-radius:3px"></i>Caminhos</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="card post-detail" id="postDetail"></div>
+        <div class="card">
+          <div class="card-head"><div><h3>Consumo por zona</h3><p>Cenário selecionado, kWh por mês</p></div></div>
+          <table class="zones" id="zones"></table>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ ALTERNATIVAS ============ -->
   <section class="block reveal" id="alternativas" aria-labelledby="altH">
     <div class="sec-head">
       <div>
-        <div class="kicker">Comparação</div>
+        <div class="kicker"><svg><use href="#i-bench"/></svg>Comparação</div>
         <h2 id="altH">Quatro cenários, a mesma necessidade</h2>
         <p>30 pontos de luz, a noite inteira, durante 12 meses. Clique em um cartão para ver seus indicadores.</p>
       </div>
@@ -402,9 +511,18 @@ footer { margin: 56px 0 32px; padding-top: 20px; border-top: 1px solid var(--bor
   <section class="block reveal" id="energia" aria-labelledby="enH">
     <div class="sec-head">
       <div>
-        <div class="kicker">Energia e custos</div>
+        <div class="kicker"><svg><use href="#i-sun"/></svg>Energia e custos</div>
         <h2 id="enH">Onde está a economia</h2>
       </div>
+    </div>
+    <div class="card night-panel" style="margin-bottom:16px">
+      <div class="card-head"><div><h3>Uma noite de junho, poste a poste</h3><p>Potência de um poste ao longo da noite, em watts</p></div></div>
+      <div class="night-legend">
+        <span><i style="background:#9aa1ad"></i>Atual: VSAP 168 W fixo</span>
+        <span><i style="background:#5fa6f5"></i>LED com telegestão e sensor de presença</span>
+        <span><i class="area" style="background:rgba(95,224,176,.35)"></i>Energia economizada</span>
+      </div>
+      <svg id="nightSvg" viewBox="0 0 460 210" style="max-height:300px" role="img" aria-label="Gráfico da potência por poste durante a noite: lâmpada atual fixa em 168 watts; LED em 80 watts até 23h e média menor na madrugada, com picos quando há presença."></svg>
     </div>
     <div class="grid-2">
       <div class="card">
@@ -426,7 +544,7 @@ footer { margin: 56px 0 32px; padding-top: 20px; border-top: 1px solid var(--bor
   <section class="block reveal" id="monitoramento" aria-labelledby="moH">
     <div class="sec-head">
       <div>
-        <div class="kicker">Viabilidade e monitoramento</div>
+        <div class="kicker"><svg><use href="#i-bolt"/></svg>Viabilidade e monitoramento</div>
         <h2 id="moH">A solução funciona o ano todo?</h2>
       </div>
     </div>
@@ -450,7 +568,7 @@ footer { margin: 56px 0 32px; padding-top: 20px; border-top: 1px solid var(--bor
   <section class="block reveal" id="decisao" aria-labelledby="mdH">
     <div class="sec-head">
       <div>
-        <div class="kicker">Matriz de decisão</div>
+        <div class="kicker"><svg><use href="#i-check"/></svg>Matriz de decisão</div>
         <h2 id="mdH">Qual alternativa recomendar</h2>
         <p>Nota ponderada de 0 a 5. Custo e energia vêm dos cálculos; viabilidade, impacto ambiental e benefício à comunidade são avaliados qualitativamente.</p>
       </div>
@@ -469,7 +587,7 @@ footer { margin: 56px 0 32px; padding-top: 20px; border-top: 1px solid var(--bor
   <section class="block reveal" id="simulador" aria-labelledby="siH">
     <div class="sec-head">
       <div>
-        <div class="kicker">Simulador</div>
+        <div class="kicker"><svg><use href="#i-reset"/></svg>Simulador</div>
         <h2 id="siH">E se as premissas mudarem?</h2>
         <p>Todos os indicadores e gráficos são recalculados pelo mesmo modelo do memorial de cálculo.</p>
       </div>
@@ -482,7 +600,7 @@ footer { margin: 56px 0 32px; padding-top: 20px; border-top: 1px solid var(--bor
   <section class="block reveal" id="solucao" aria-labelledby="soH">
     <div class="sec-head">
       <div>
-        <div class="kicker">Diagrama da solução</div>
+        <div class="kicker"><svg><use href="#i-tree"/></svg>Diagrama da solução</div>
         <h2 id="soH">Como a solução recomendada (A3) funciona</h2>
         <p>Da fonte de energia até os indicadores deste painel.</p>
       </div>
@@ -550,7 +668,11 @@ footer { margin: 56px 0 32px; padding-top: 20px; border-top: 1px solid var(--bor
     </div>
   </section>
 
-  <footer>
+  <svg class="treeline" viewBox="0 0 1200 70" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="currentColor" d="M0 70V52c20-2 30-18 52-18s30 14 46 14 22-26 48-26 34 22 52 22 18-10 36-10 24 18 44 18 30-34 60-34 36 28 56 28 20-12 38-12 26 16 46 16 34-30 62-30 30 26 50 26 22-14 40-14 22 12 44 12 32-36 64-36 38 30 58 30 22-16 42-16 28 18 50 18 26-24 52-24 30 20 52 20 20-10 38-10 24 14 44 14 30-28 58-28 34 24 54 24 22-12 40-12 20 10 40 10V70z"/>
+    <g fill="currentColor"><rect x="300" y="18" width="3" height="40"/><path d="M301 18h14v4h-14z"/><rect x="760" y="14" width="3" height="44"/><path d="M761 14h14v4h-14z"/><rect x="520" y="44" width="40" height="4" rx="1"/><rect x="524" y="48" width="3" height="10"/><rect x="553" y="48" width="3" height="10"/></g>
+  </svg>
+  <footer style="margin-top:0">
     <span>Módulo SERS — Soluções em Energias Renováveis e Sustentáveis · Global Solution 2026.2</span>
     <span>Fontes e memorial de cálculo no README do repositório</span>
   </footer>
@@ -887,6 +1009,7 @@ footer { margin: 56px 0 32px; padding-top: 20px; border-top: 1px solid var(--bor
   function renderSelection() {
     var r = R.resumo[sel], a0 = R.resumo.A0;
     root.style.setProperty("--sel", "var(--" + sel.toLowerCase() + ")");
+    if (typeof SC !== "undefined" && SC) renderPraca();
     seg.querySelectorAll("button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.k === sel); });
     altsEl.querySelectorAll(".alt").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.k === sel); });
     movePill();
@@ -967,6 +1090,305 @@ footer { margin: 56px 0 32px; padding-top: 20px; border-top: 1px solid var(--bor
     drawNight();
     if (charts.mensal) updateCharts();
   }
+  function renderPraca() {
+    if (document.querySelector("#map .post")) renderMap();
+    if (SC.els) paintScene(1);
+  }
+
+  /* =====================================================================
+     CENA ILUSTRADA DA PRAÇA (hero)
+     Simula uma noite: 18h → 6h. Depois das 23h os LEDs dimerizam e o
+     sensor de presença acende a 100% os postes perto do pedestre.
+     ===================================================================== */
+  var LAMPS = [110, 300, 490, 680, 870];
+  var SC = { t: 0, px: -60, last: 0, playing: !REDUCED, visible: true, lv: LAMPS.map(function () { return 1; }), els: null };
+  function rnd(seed) { var s = seed; return function () { s = (s * 9301 + 49297) % 233280; return s / 233280; }; }
+
+  function buildScene() {
+    var r = rnd(11), o = [];
+    o.push('<defs>' +
+      '<radialGradient id="coneLed" cx=".5" cy="0" r="1"><stop offset="0" stop-color="#eaf3ff" stop-opacity=".55"/><stop offset=".7" stop-color="#eaf3ff" stop-opacity=".08"/><stop offset="1" stop-color="#eaf3ff" stop-opacity="0"/></radialGradient>' +
+      '<radialGradient id="coneNa" cx=".5" cy="0" r="1"><stop offset="0" stop-color="#ffb04a" stop-opacity=".6"/><stop offset=".7" stop-color="#ffb04a" stop-opacity=".1"/><stop offset="1" stop-color="#ffb04a" stop-opacity="0"/></radialGradient>' +
+      '<radialGradient id="poolLed"><stop offset="0" stop-color="#eaf3ff" stop-opacity=".45"/><stop offset="1" stop-color="#eaf3ff" stop-opacity="0"/></radialGradient>' +
+      '<radialGradient id="poolNa"><stop offset="0" stop-color="#ffb04a" stop-opacity=".5"/><stop offset="1" stop-color="#ffb04a" stop-opacity="0"/></radialGradient>' +
+      '<linearGradient id="grass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#173a24"/><stop offset="1" stop-color="#0f1d12"/></linearGradient>' +
+      '<pattern id="pedra" width="60" height="26" patternUnits="userSpaceOnUse"><rect width="60" height="26" fill="#3a3830"/><path d="M0 13 Q15 1 30 13 T60 13" fill="none" stroke="#1d1c18" stroke-width="5"/></pattern>' +
+      "</defs>");
+    // lua
+    o.push('<circle cx="1162" cy="126" r="44" fill="#f3f0dc" opacity=".05"/><circle cx="1162" cy="126" r="15" fill="#f3f0dc" opacity=".92"/><circle cx="1157" cy="122" r="3" fill="#d9d4bb" opacity=".6"/><circle cx="1167" cy="131" r="2.4" fill="#d9d4bb" opacity=".5"/>');
+    // prédios ao fundo
+    var x = 0;
+    while (x < 930) {
+      var w = 50 + r() * 60, h = 70 + r() * 110, y0 = 300 - h;
+      o.push('<rect x="' + x.toFixed(0) + '" y="' + y0.toFixed(0) + '" width="' + w.toFixed(0) + '" height="' + h.toFixed(0) + '" fill="#132341"/>');
+      for (var wy = y0 + 12; wy < 286; wy += 18) for (var wx = x + 8; wx < x + w - 10; wx += 14) {
+        if (r() < 0.22) o.push('<rect class="win" style="animation-delay:' + (r() * 6).toFixed(1) + 's" x="' + wx.toFixed(0) + '" y="' + wy.toFixed(0) + '" width="6" height="8" fill="#f6d27a" opacity=".85"/>');
+      }
+      x += w + 6 + r() * 14;
+    }
+    // escola + usina FV no telhado (A3)
+    o.push('<rect x="950" y="196" width="240" height="108" fill="#1b2f52"/><polygon points="938,198 1070,142 1202,198" fill="#22385f"/>' +
+      '<rect x="1052" y="250" width="36" height="54" fill="#0f1a2e"/>' +
+      [970, 1004, 1110, 1144].map(function (wx) { return '<rect x="' + wx + '" y="222" width="24" height="18" fill="#a9c8f0" opacity=".35"/>'; }).join("") +
+      '<rect x="1018" y="204" width="104" height="14" rx="2" fill="#0f1a2e"/><text x="1070" y="214.5" text-anchor="middle" font-size="9" font-weight="700" fill="#9fb0cc" letter-spacing="1">ESCOLA MUNICIPAL</text>' +
+      '<g id="pvRoof"><g transform="translate(952,190) rotate(-23)">' +
+      [0, 1, 2, 3, 4, 5].map(function (i) { return '<rect x="' + (i * 21) + '" y="-11" width="19" height="10" fill="#2c64b8" stroke="#9cc3ff" stroke-width=".6"/><line x1="' + (i * 21 + 9.5) + '" y1="-11" x2="' + (i * 21 + 9.5) + '" y2="-1" stroke="#9cc3ff" stroke-width=".4"/>'; }).join("") +
+      '</g><g><rect x="996" y="112" width="132" height="20" rx="10" fill="rgba(10,20,40,.8)" stroke="rgba(95,224,176,.5)"/><text x="1062" y="126" text-anchor="middle" font-size="11" font-weight="600" fill="#8ff0c8">Usina FV 6 kWp</text></g></g>');
+    // cerca viva, grama, calçada em pedra portuguesa
+    for (var hx = -20; hx < 960; hx += 46) o.push('<ellipse cx="' + hx + '" cy="302" rx="34" ry="12" fill="#10261a"/>');
+    o.push('<rect x="0" y="300" width="1200" height="100" fill="url(#grass)"/><rect x="0" y="342" width="1200" height="26" fill="url(#pedra)"/>' +
+      '<rect x="0" y="341" width="1200" height="1.5" fill="#55524a"/><rect x="0" y="368" width="1200" height="1.5" fill="#55524a"/>');
+    // árvores
+    [30, 205, 395, 585, 775, 935].forEach(function (tx, i) {
+      var s = i % 2 ? 1 : 1.15;
+      o.push('<g transform="translate(' + tx + ',0)"><rect x="-4" y="250" width="8" height="56" fill="#2a1f17"/>' +
+        '<circle cx="0" cy="' + (238 - 10 * s) + '" r="' + (34 * s) + '" fill="#1d4630"/><circle cx="-22" cy="252" r="' + (24 * s) + '" fill="#1a3f2b"/><circle cx="22" cy="252" r="' + (24 * s) + '" fill="#1a3f2b"/>' +
+        '<circle cx="-9" cy="' + (226 - 10 * s) + '" r="' + (15 * s) + '" fill="#265a3d" opacity=".8"/></g>');
+    });
+    // bancos
+    [205, 585, 935].forEach(function (bx) {
+      bx += 38;
+      o.push('<g fill="#4a3727"><rect x="' + (bx - 26) + '" y="320" width="52" height="5" rx="1"/><rect x="' + (bx - 26) + '" y="309" width="52" height="4" rx="1"/></g>' +
+        '<g fill="#1a1d24"><rect x="' + (bx - 22) + '" y="325" width="3" height="14"/><rect x="' + (bx + 19) + '" y="325" width="3" height="14"/><rect x="' + (bx - 22) + '" y="309" width="2" height="12"/><rect x="' + (bx + 20) + '" y="309" width="2" height="12"/></g>');
+    });
+    // cones de luz (mistura "screen" para iluminar a cena)
+    o.push('<g style="mix-blend-mode:screen">');
+    LAMPS.forEach(function (lx, i) {
+      o.push('<polygon class="cone" data-i="' + i + '" points="' + (lx + 12) + ',144 ' + (lx + 32) + ',144 ' + (lx + 128) + ',356 ' + (lx - 84) + ',356" fill="url(#coneLed)"/>' +
+        '<ellipse class="pool" data-i="' + i + '" cx="' + (lx + 22) + '" cy="356" rx="112" ry="15" fill="url(#poolLed)"/>');
+    });
+    o.push("</g>");
+    // postes
+    LAMPS.forEach(function (lx, i) {
+      o.push('<g><rect x="' + (lx - 2.5) + '" y="150" width="5" height="192" fill="#2b3340"/><rect x="' + (lx - 7) + '" y="336" width="14" height="7" rx="1.5" fill="#222935"/>' +
+        '<path d="M' + lx + ' 160 q0 -18 18 -18 h8" fill="none" stroke="#2b3340" stroke-width="4"/>' +
+        '<path d="M' + (lx + 8) + ' 140 h30 l-4 6 h-22 z" fill="#3a4252"/>' +
+        '<ellipse class="lens" data-i="' + i + '" cx="' + (lx + 22) + '" cy="146.5" rx="11" ry="2.6" fill="#f4f8ff"/>' +
+        '<circle class="pir" data-i="' + i + '" cx="' + (lx + 6) + '" cy="150" r="2.4" fill="#5fe0b0" opacity="0"/>' +
+        '<g class="kit" opacity="0"><g transform="translate(' + lx + ',146) rotate(-20)"><rect x="-24" y="-9" width="40" height="8" fill="#2c64b8" stroke="#9cc3ff" stroke-width=".7"/></g>' +
+        '<rect x="' + (lx - 7) + '" y="262" width="14" height="22" rx="2" fill="#3c4655"/><rect x="' + (lx - 4) + '" y="266" width="8" height="3" rx="1" fill="#5fe0b0"/></g></g>');
+    });
+    // pedestre
+    o.push('<g id="ped" transform="translate(-60,0)"><circle cx="0" cy="306" r="5.2" fill="#05070c"/><rect x="-4.5" y="312" width="9" height="20" rx="3.5" fill="#05070c"/>' +
+      '<g transform="translate(-2,330)"><rect class="leg" x="-1.6" y="0" width="3.2" height="18" rx="1.5" fill="#05070c"/></g><g transform="translate(2,330)"><rect class="leg b" x="-1.6" y="0" width="3.2" height="18" rx="1.5" fill="#05070c"/></g></g>');
+    var svg = document.getElementById("scene");
+    svg.innerHTML = o.join("");
+    SC.els = {
+      cones: svg.querySelectorAll(".cone"), pools: svg.querySelectorAll(".pool"), lens: svg.querySelectorAll(".lens"), pir: svg.querySelectorAll(".pir"),
+      kits: svg.querySelectorAll(".kit"), pv: svg.querySelector("#pvRoof"), ped: svg.querySelector("#ped")
+    };
+    document.getElementById("tlMark").style.left = (P.dimerizacao.horas_100pct / 12 * 100) + "%";
+  }
+
+  function hhmm(t) { var m = Math.round((18 + t) * 60) % 1440; return String(Math.floor(m / 60)).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0"); }
+
+  function paintScene(dt) {
+    if (!SC.els) return;
+    var E = SC.els, hC = P.dimerizacao.horas_100pct, base = Math.max(0.3, P.dimerizacao.nivel_madrugada - 0.2);
+    var isNa = sel === "A0", led = sel === "A2" ? P.alternativas.A2.potencia_w : P.alternativas.A1.potencia_w;
+    var sum = 0;
+    LAMPS.forEach(function (lx, i) {
+      var near = Math.abs(SC.px - (lx + 22)) < 140;
+      var tg = isNa || SC.t < hC || near ? 1 : base;
+      SC.lv[i] += (tg - SC.lv[i]) * Math.min(1, dt * 5);
+      var lv = SC.lv[i]; sum += lv;
+      E.cones[i].setAttribute("fill", isNa ? "url(#coneNa)" : "url(#coneLed)");
+      E.pools[i].setAttribute("fill", isNa ? "url(#poolNa)" : "url(#poolLed)");
+      E.cones[i].style.opacity = (0.15 + 0.85 * lv).toFixed(3);
+      E.pools[i].style.opacity = (0.15 + 0.85 * lv).toFixed(3);
+      E.lens[i].setAttribute("fill", isNa ? "#ffcf8a" : "#f4f8ff");
+      E.lens[i].style.opacity = (0.35 + 0.65 * lv).toFixed(3);
+      E.pir[i].style.opacity = !isNa && SC.t >= hC && near ? 1 : 0;
+    });
+    E.kits.forEach(function (k) { k.style.opacity = sel === "A2" ? 1 : 0; });
+    E.pv.style.opacity = sel === "A3" ? 1 : 0;
+    E.ped.setAttribute("transform", "translate(" + SC.px.toFixed(1) + ",0)");
+    // HUD
+    var avgW = isNa ? P.alternativas.A0.potencia_lampada_w * (1 + P.alternativas.A0.perdas_reator) : led * sum / LAMPS.length;
+    document.getElementById("hClock").textContent = hhmm(SC.t);
+    var ph = document.getElementById("hPhase");
+    if (isNa) { ph.textContent = "100% a noite toda"; ph.className = "phase"; }
+    else if (SC.t < hC) { ph.textContent = "Plena até as 23h"; ph.className = "phase"; }
+    else { ph.textContent = "Dimerizado · presença acende"; ph.className = "phase dim"; }
+    document.getElementById("hPow").textContent = f0.format(avgW) + " W";
+    document.getElementById("hTot").textContent = f1.format(avgW * P.local.pontos_iluminacao / 1000) + " kW";
+    document.getElementById("hSrc").textContent = { A0: "Rede elétrica", A1: "Rede elétrica", A2: "Bateria solar no poste", A3: "Rede + créditos FV" }[sel];
+    document.getElementById("hAlt").textContent = sel + " · " + P.alternativas[sel].curto;
+    document.getElementById("hDot").style.background = "var(--" + sel.toLowerCase() + ")";
+    var tl = document.getElementById("tl");
+    tl.value = SC.t; tl.style.setProperty("--p", (SC.t / 12 * 100) + "%");
+  }
+
+  function sceneLoop(ts) {
+    var dt = SC.last ? Math.min(0.06, (ts - SC.last) / 1000) : 0.016; SC.last = ts;
+    if (SC.playing) {
+      SC.t += dt * 12 / 36; if (SC.t > 12) SC.t = 0;
+      SC.px += dt * 75; if (SC.px > 1260) SC.px = -60;
+    }
+    paintScene(SC.playing ? dt : 1);
+    if (SC.visible) requestAnimationFrame(sceneLoop); else SC.last = 0;
+  }
+  function setPlaying(p) {
+    SC.playing = p;
+    document.getElementById("playIcon").setAttribute("href", p ? "#i-pause" : "#i-play");
+    document.getElementById("playBtn").setAttribute("aria-label", p ? "Pausar a simulação da noite" : "Reproduzir a simulação da noite");
+  }
+  document.getElementById("playBtn").addEventListener("click", function () { setPlaying(!SC.playing); });
+  document.getElementById("tl").addEventListener("input", function (e) { setPlaying(false); SC.t = parseFloat(e.target.value); paintScene(1); });
+  buildScene();
+  if (REDUCED) { SC.t = 6.5; SC.px = 520; setPlaying(false); }
+  new IntersectionObserver(function (es) {
+    var v = es[0].isIntersecting;
+    if (v && !SC.visible) { SC.visible = true; requestAnimationFrame(sceneLoop); }
+    SC.visible = v;
+  }).observe(document.getElementById("scene"));
+  requestAnimationFrame(sceneLoop);
+
+  /* =====================================================================
+     MAPA DA PRAÇA (vista de cima) — 30 postes
+     O nível médio de cada poste na madrugada varia com o movimento da zona
+     e é normalizado para que a média seja a premissa do estudo.
+     ===================================================================== */
+  var POSTS = (function () {
+    var pts = [], i;
+    [150, 300, 450, 600, 750].forEach(function (x) { pts.push([x, 64], [x, 496]); });
+    [170, 280, 390].forEach(function (y) { pts.push([64, y], [836, y]); });
+    var diags = [[95, 95, 380, 250], [805, 95, 520, 250], [95, 465, 380, 310], [805, 465, 520, 310]];
+    diags.forEach(function (d) { [0.3, 0.72].forEach(function (t) { pts.push([d[0] + (d[2] - d[0]) * t + 14, d[1] + (d[3] - d[1]) * t - 14]); }); });
+    [45, 135, 225, 315].forEach(function (a) { var r = a * Math.PI / 180; pts.push([450 + 96 * Math.cos(r), 280 + 96 * Math.sin(r)]); });
+    pts.push([215, 262], [685, 262]);
+    var rr = rnd(5);
+    return pts.map(function (p, k) {
+      var x = p[0], y = p[1], dc = Math.hypot(x - 450, y - 280), zone, adj;
+      if (x < 70 || x > 830 || y < 70 || y > 490) { zone = "Calçada externa"; adj = -0.06; }
+      else if (dc < 130) { zone = "Coreto"; adj = 0.06; }
+      else if (y > 330 && x > 280 && x < 620) { zone = "Quadra"; adj = 0.14; }
+      else if (y < 230 && x > 280 && x < 620) { zone = "Parquinho"; adj = 0.10; }
+      else { zone = "Caminhos e jardins"; adj = 0.0; }
+      return { id: "P" + String(k + 1).padStart(2, "0"), x: x, y: y, zone: zone, adj: adj + (rr() - 0.5) * 0.06 };
+    });
+  })();
+  // poste com alerta: o que aparece em falha na telemetria simulada
+  var FAIL_ID = "P18";
+  var selPost = null;
+
+  function postLevels() {
+    var nivel = P.dimerizacao.nivel_madrugada;
+    var mean = POSTS.reduce(function (s, p) { return s + p.adj; }, 0) / POSTS.length;
+    return POSTS.map(function (p) { return Math.max(0.3, Math.min(1, nivel + p.adj - mean)); });
+  }
+  function hnAvg() { var m = P.mensal; return m.horas_noite.reduce(function (s, h, i) { return s + h * m.dias[i]; }, 0) / 365; }
+  function postStats() {
+    var lv = postLevels(), hn = hnAvg(), hC = P.dimerizacao.horas_100pct;
+    var pw = sel === "A0" ? P.alternativas.A0.potencia_lampada_w * (1 + P.alternativas.A0.perdas_reator) : sel === "A2" ? P.alternativas.A2.potencia_w : P.alternativas.A1.potencia_w;
+    var base = 0.3;
+    var n = P.local.pontos_iluminacao / POSTS.length; // escala se o simulador mudar o nº de postes
+    return POSTS.map(function (p, i) {
+      var kn = sel === "A0" ? pw * hn / 1000 : SERSCalc.energiaKwh(pw, hC + lv[i] * (hn - hC));
+      return { p: p, nivel: lv[i], kwhNoite: kn, kwhMes: kn * 365 / 12 * n, minPresenca: sel === "A0" ? 0 : (lv[i] - base) / (1 - base) * (hn - hC) * 60, pw: pw };
+    });
+  }
+
+  function buildMap() {
+    var o = [];
+    o.push('<defs><pattern id="mpedra" width="40" height="18" patternUnits="userSpaceOnUse"><rect width="40" height="18" fill="#3b3f47"/><path d="M0 9 Q10 0 20 9 T40 9" fill="none" stroke="#23262c" stroke-width="3.5"/></pattern>' +
+      '<radialGradient id="halo"><stop offset="0" stop-color="currentColor" stop-opacity=".75"/><stop offset=".45" stop-color="currentColor" stop-opacity=".22"/><stop offset="1" stop-color="currentColor" stop-opacity="0"/></radialGradient></defs>');
+    o.push('<rect width="900" height="560" fill="#0e1726"/>');
+    // ruas e faixas
+    o.push('<g stroke="#2a3446" stroke-width="2" stroke-dasharray="16 14"><line x1="0" y1="22" x2="900" y2="22"/><line x1="0" y1="538" x2="900" y2="538"/><line x1="22" y1="0" x2="22" y2="560"/><line x1="878" y1="0" x2="878" y2="560"/></g>');
+    [[430, 0, 1], [430, 524, 1], [0, 262, 0], [864, 262, 0]].forEach(function (c) {
+      for (var k = 0; k < 6; k++) o.push(c[2] ? '<rect x="' + (c[0] + k * 8) + '" y="' + (c[1] + 6) + '" width="4" height="24" fill="#3a4559"/>' : '<rect x="' + (c[0] + 6) + '" y="' + (c[1] + k * 8) + '" width="24" height="4" fill="#3a4559"/>');
+    });
+    // calçada em pedra portuguesa e gramado
+    o.push('<rect x="46" y="46" width="808" height="468" rx="38" fill="url(#mpedra)"/><rect x="80" y="80" width="740" height="400" rx="24" fill="#16301f"/>');
+    // caminhos
+    o.push('<g stroke="#6f6656" stroke-width="20" stroke-linecap="round"><line x1="95" y1="95" x2="380" y2="250"/><line x1="805" y1="95" x2="520" y2="250"/><line x1="95" y1="465" x2="380" y2="310"/><line x1="805" y1="465" x2="520" y2="310"/><line x1="84" y1="280" x2="372" y2="280"/><line x1="528" y1="280" x2="816" y2="280"/></g>');
+    // coreto
+    o.push('<circle cx="450" cy="280" r="80" fill="#6f6656"/><circle cx="450" cy="280" r="48" fill="#2a3344" stroke="#8a7f6b" stroke-width="3"/>' +
+      '<path d="M450 236 L486 262 L472 304 L428 304 L414 262 Z" fill="none" stroke="#8a7f6b" stroke-width="1.5" opacity=".7"/><text x="450" y="284" text-anchor="middle" font-size="12" fill="#c7d2e4" font-weight="600">Coreto</text>');
+    // parquinho
+    o.push('<rect x="330" y="98" width="240" height="96" rx="16" fill="#4a3b2a"/><g stroke="#d9b98a" stroke-width="2.5" fill="none" stroke-linecap="round"><path d="M360 170 l30 -40 h14"/><path d="M430 120 v50 M470 120 v50 M430 120 h40"/><path d="M442 120 v26 M458 120 v26"/><circle cx="525" cy="148" r="20"/></g>' +
+      '<text x="450" y="114" text-anchor="middle" font-size="12" fill="#e9d9bf" font-weight="600">Parquinho</text>');
+    // quadra
+    o.push('<rect x="320" y="364" width="260" height="104" rx="6" fill="#1d4f6b"/><g fill="none" stroke="#cfe6f5" stroke-width="2" opacity=".85"><rect x="330" y="374" width="240" height="84"/><line x1="450" y1="374" x2="450" y2="458"/><circle cx="450" cy="416" r="16"/><path d="M330 396 h22 v40 h-22 M570 396 h-22 v40 h22"/></g>' +
+      '<text x="450" y="486" text-anchor="middle" font-size="12" fill="#c7d2e4" font-weight="600">Quadra</text>');
+    // jardins / academia
+    o.push('<text x="170" y="236" text-anchor="middle" font-size="12" fill="#9fc7aa" font-weight="600">Jardim</text><text x="730" y="236" text-anchor="middle" font-size="12" fill="#9fc7aa" font-weight="600">Academia ao ar livre</text>');
+    [[690, 330], [730, 350], [770, 330], [710, 380]].forEach(function (a) { o.push('<circle cx="' + a[0] + '" cy="' + a[1] + '" r="9" fill="none" stroke="#9fc7aa" stroke-width="2.5"/>'); });
+    // árvores
+    var tr = rnd(3);
+    [[130, 150], [210, 135], [160, 200], [250, 190], [120, 340], [190, 380], [240, 340], [150, 430], [250, 440], [680, 140], [760, 150], [720, 190], [640, 190], [780, 420], [700, 440], [620, 420], [620, 100], [280, 100], [600, 330], [300, 330]].forEach(function (t) {
+      var r0 = 15 + tr() * 9;
+      o.push('<circle cx="' + t[0] + '" cy="' + t[1] + '" r="' + r0.toFixed(1) + '" fill="#2f6b45" opacity=".95"/><circle cx="' + (t[0] - r0 * .25).toFixed(1) + '" cy="' + (t[1] - r0 * .25).toFixed(1) + '" r="' + (r0 * .5).toFixed(1) + '" fill="#3d8257"/>');
+    });
+    // bancos
+    [[200, 250, 28], [700, 250, -28], [230, 300, 0], [670, 300, 0], [380, 200, 0], [520, 200, 0], [400, 352, 0], [500, 352, 0]].forEach(function (b) {
+      o.push('<rect x="' + (b[0] - 11) + '" y="' + (b[1] - 3) + '" width="22" height="6" rx="1.5" fill="#8b6b4a" transform="rotate(' + b[2] + ' ' + b[0] + ' ' + b[1] + ')"/>');
+    });
+    // postes
+    o.push('<g id="posts">');
+    POSTS.forEach(function (p, i) {
+      o.push('<g class="post" data-i="' + i + '" tabindex="0" role="button" aria-label="Poste ' + p.id + ', ' + p.zone + '">' +
+        '<circle class="halo" cx="' + p.x.toFixed(1) + '" cy="' + p.y.toFixed(1) + '" r="24" fill-opacity=".16"/><circle class="halo2" cx="' + p.x.toFixed(1) + '" cy="' + p.y.toFixed(1) + '" r="14" fill-opacity=".32"/>' +
+        '<circle class="core" cx="' + p.x.toFixed(1) + '" cy="' + p.y.toFixed(1) + '" r="6.5" stroke="#0e1726" stroke-width="2"/>' +
+        '<circle cx="' + p.x.toFixed(1) + '" cy="' + p.y.toFixed(1) + '" r="16" fill="transparent"/></g>');
+    });
+    o.push("</g>");
+    var svg = document.getElementById("map");
+    svg.innerHTML = o.join("");
+    var tip = document.getElementById("mapTip"), card = svg.parentNode;
+    svg.querySelectorAll(".post").forEach(function (g) {
+      var i = +g.dataset.i;
+      g.addEventListener("click", function () { selPost = i; renderMap(); });
+      g.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); selPost = i; renderMap(); } });
+      g.addEventListener("mouseenter", function () {
+        var s = postStats()[i], rc = card.getBoundingClientRect(), rs = svg.getBoundingClientRect();
+        tip.innerHTML = "<b>" + s.p.id + "</b> · " + s.p.zone + "<br>" + f2.format(s.kwhNoite) + " kWh/noite" + (s.p.id === FAIL_ID ? ' · <span style="color:#d03b3b">falha</span>' : "");
+        tip.style.left = (rs.left - rc.left + s.p.x / 900 * rs.width + 14) + "px";
+        tip.style.top = (rs.top - rc.top + s.p.y / 560 * rs.height - 10) + "px";
+        tip.style.opacity = 1;
+      });
+      g.addEventListener("mouseleave", function () { tip.style.opacity = 0; });
+    });
+    selPost = POSTS.findIndex(function (p) { return p.zone === "Quadra"; });
+  }
+
+  function renderMap() {
+    var S = postStats();
+    var light = sel === "A0" ? "#ffb04a" : col(sel);
+    var maxK = P.alternativas.A0.potencia_lampada_w * (1 + P.alternativas.A0.perdas_reator) * hnAvg() / 1000;
+    document.querySelectorAll("#map .post").forEach(function (g) {
+      var i = +g.dataset.i, s = S[i], fail = s.p.id === FAIL_ID;
+      var halo = g.querySelector(".halo"), core = g.querySelector(".core");
+      var rH = 12 + 30 * s.kwhNoite / maxK, h2 = g.querySelector(".halo2");
+      halo.setAttribute("fill", fail ? "#d03b3b" : light); h2.setAttribute("fill", fail ? "#d03b3b" : light);
+      halo.setAttribute("r", rH.toFixed(1)); h2.setAttribute("r", (rH * .55).toFixed(1));
+      core.setAttribute("fill", fail ? "#d03b3b" : light);
+      g.classList.toggle("sel", i === selPost);
+    });
+    // detalhe do poste
+    var s = S[selPost], fail = s.p.id === FAIL_ID;
+    var tech = sel === "A0" ? "VSAP 150 W + reator" : sel === "A2" ? "LED 60 W + kit solar" : "LED 80 W + telegestão";
+    var src = { A0: "Rede elétrica", A1: "Rede elétrica", A2: "Painel 250 Wp + bateria", A3: "Rede + créditos FV" }[sel];
+    document.getElementById("postDetail").innerHTML =
+      '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px"><div><div class="pid">POSTE ' + s.p.id + "</div><h4>" + s.p.zone + "</h4></div>" +
+      (fail ? '<span class="status-pill bad">Falha detectada</span>' : '<span class="status-pill ok">Operando</span>') + "</div>" +
+      "<dl><dt>Tecnologia</dt><dd>" + tech + "</dd><dt>Alimentação</dt><dd>" + src + "</dd>" +
+      "<dt>Nível médio na madrugada</dt><dd>" + (sel === "A0" ? "100% (sem controle)" : f0.format(s.nivel * 100) + "%") + "</dd>" +
+      "<dt>Tempo a 100% por presença</dt><dd>" + (sel === "A0" ? "—" : f0.format(s.minPresenca) + " min/noite") + "</dd>" +
+      "<dt>Consumo</dt><dd>" + f2.format(s.kwhNoite) + " kWh/noite</dd>" +
+      "<dt>Consumo mensal</dt><dd>" + f1.format(s.kwhNoite * 365 / 12) + " kWh/mês</dd></dl>" +
+      (fail ? '<div class="callout" style="margin-top:12px"><svg style="color:#d03b3b"><use href="#i-alert"/></svg><span>Corrente zero durante a noite: o nó de telegestão gera um alerta e a equipe de manutenção é avisada.</span></div>' : "");
+    // zonas
+    var Z = {};
+    S.forEach(function (x) { var z = Z[x.p.zone] || (Z[x.p.zone] = { n: 0, k: 0 }); z.n++; z.k += x.kwhMes; });
+    var names = Object.keys(Z).sort(function (a, b) { return Z[b].k - Z[a].k; }), zmax = Math.max.apply(null, names.map(function (n) { return Z[n].k; }));
+    var tot = names.reduce(function (s, n) { return s + Z[n].k; }, 0);
+    document.getElementById("zones").innerHTML = "<thead><tr><th>Zona</th><th>Postes</th><th>kWh/mês</th><th></th></tr></thead><tbody>" +
+      names.map(function (n) { return "<tr><td>" + n + "</td><td>" + Z[n].n + "</td><td>" + f0.format(Z[n].k) + '</td><td><div class="zbar"><span style="width:' + (Z[n].k / zmax * 100) + '%"></span></div></td></tr>'; }).join("") +
+      "<tr><td><b>Praça inteira</b></td><td><b>" + f0.format(P.local.pontos_iluminacao) + "</b></td><td><b>" + f0.format(tot) + "</b></td><td></td></tr></tbody>";
+  }
+  buildMap();
 
   /* ---------- revelar ao rolar + nav ativa ---------- */
   var rankSeen = false;
