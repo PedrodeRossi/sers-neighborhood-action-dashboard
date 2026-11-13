@@ -13,7 +13,7 @@
 | Pedro Marcassa de Rossi | RM574723 |
 | Moisés Cristiano Taguchi | RM560067 |
 
-**Vídeo (YouTube, não listado):** _cole o link aqui_
+**Vídeo (YouTube, não listado):** https://youtu.be/bPr5bs2Akik
 **Dashboard online:** https://pedroderossi.github.io/sers-neighborhood-action-dashboard/dashboard/
 
 ---
