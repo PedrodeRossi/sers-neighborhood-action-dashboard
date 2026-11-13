@@ -1,0 +1,111 @@
+{
+  "_descricao": "Premissas do estudo SERS - Praça Comunitária Iluminada (Neighborhood Action Dashboard). Todos os valores são estimativas justificadas; ver docs/memorial_calculo.md e a coluna 'fonte' de cada item.",
+  "local": {
+    "nome": "Praça comunitária de bairro (cenário de referência em São Paulo/SP)",
+    "latitude": -23.55,
+    "pontos_iluminacao": 30,
+    "area_m2": 6000,
+    "fonte": "Cenário de referência adotado pela equipe: praça de ~6.000 m², 30 postes, típica de bairros residenciais de SP."
+  },
+  "mensal": {
+    "meses": ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+    "dias": [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+    "horas_noite": [10.9, 11.4, 11.9, 12.5, 13.0, 13.2, 13.1, 12.7, 12.1, 11.6, 11.0, 10.8],
+    "hsp_kwh_m2_dia": [4.9, 5.2, 4.8, 4.6, 4.0, 3.8, 3.9, 4.7, 4.5, 4.8, 4.9, 4.9],
+    "fonte_horas_noite": "Duração aproximada da noite (pôr ao nascer do sol + atuação do relé fotoelétrico) para latitude 23,5°S; derivada de tabelas de nascer/pôr do sol (ex.: timeanddate.com / Observatório Nacional).",
+    "fonte_hsp": "Horas de Sol Pleno (irradiação diária média no plano inclinado ≈ latitude) aproximadas para São Paulo, ordem de grandeza do CRESESB/SunData e Atlas Brasileiro de Energia Solar (INPE, 2017). Conferir no SunData para as coordenadas exatas."
+  },
+  "economico": {
+    "tarifa_r_kwh": 0.50,
+    "fonte_tarifa": "Estimativa da tarifa de iluminação pública (subgrupo B4a) com tributos, ordem de grandeza das tarifas homologadas pela ANEEL para distribuidoras de SP. Valor ajustável no dashboard.",
+    "horizonte_anos": 10,
+    "fator_emissao_kgco2_kwh": 0.0385,
+    "fonte_fator_emissao": "Fator médio de emissão do Sistema Interligado Nacional (MCTI, 2023: 0,0385 tCO2/MWh). Atualizar com o ano mais recente publicado pelo MCTI."
+  },
+  "alternativas": {
+    "A0": {
+      "nome": "Situação atual — Vapor de sódio (VSAP 150 W)",
+      "curto": "Atual (VSAP)",
+      "tipo": "rede",
+      "renovavel": false,
+      "potencia_lampada_w": 150,
+      "perdas_reator": 0.12,
+      "dimerizacao": false,
+      "capex_por_ponto": 0,
+      "manutencao_por_ponto_ano": 150,
+      "vida_util_h": 24000,
+      "fluxo_luminoso_lm": 15000,
+      "fonte": "Lâmpadas VSAP 150 W (~100 lm/W) com reator eletromagnético (perdas típicas 10–15%), padrão ainda comum na IP brasileira (PROCEL Reluz). Manutenção: troca de lâmpada/reator e rondas."
+    },
+    "A1": {
+      "nome": "LED 80 W + telegestão e sensor de presença",
+      "curto": "LED + sensores",
+      "tipo": "rede",
+      "renovavel": false,
+      "potencia_w": 80,
+      "dimerizacao": true,
+      "capex_por_ponto": 1950,
+      "manutencao_por_ponto_ano": 40,
+      "vida_util_h": 60000,
+      "fluxo_luminoso_lm": 11200,
+      "fonte": "Luminárias LED viárias ~140 lm/W com selo PROCEL/INMETRO (Portaria 62/2022). LED direciona a luz, então 11.200 lm LED ≈ 15.000 lm VSAP em iluminância útil. Custo: luminária R$ 1.200 + nó de telegestão com PIR R$ 450 + instalação R$ 300 (pesquisa de mercado, estimativa)."
+    },
+    "A2": {
+      "nome": "Luminária solar autônoma (off-grid) LED 60 W",
+      "curto": "Solar off-grid",
+      "tipo": "offgrid",
+      "renovavel": true,
+      "potencia_w": 60,
+      "dimerizacao": true,
+      "painel_wp": 250,
+      "bateria_wh": 1280,
+      "profundidade_descarga": 0.8,
+      "performance_ratio": 0.75,
+      "capex_por_ponto": 4500,
+      "manutencao_por_ponto_ano": 120,
+      "troca_bateria_ano": 8,
+      "custo_bateria": 1800,
+      "fluxo_luminoso_lm": 9000,
+      "fonte": "Kit por poste: módulo 250 Wp (R$ 600), bateria LiFePO4 12,8 V 100 Ah (R$ 1.800, ~3.000 ciclos), controlador MPPT (R$ 300), LED 60 W 150 lm/W com PIR (R$ 700), suporte e instalação (R$ 1.100). Estimativas de mercado."
+    },
+    "A3": {
+      "nome": "LED 80 W + sensores + usina FV on-grid (compensação)",
+      "curto": "LED + FV on-grid",
+      "tipo": "hibrido",
+      "renovavel": true,
+      "base": "A1",
+      "custo_fv_r_kwp": 3800,
+      "potencia_modulo_wp": 550,
+      "performance_ratio": 0.78,
+      "manutencao_fv_pct_capex_ano": 0.01,
+      "parcela_nao_compensada": 0.15,
+      "fonte": "Sistema FV no telhado de um equipamento público próximo (escola/UBS/centro comunitário) em autoconsumo remoto (Lei 14.300/2022). Custo de sistemas FV pequenos ~R$ 3.500–4.200/kWp (Greener, Estudo Estratégico GD). Parcela não compensada representa o 'Fio B' da regra de transição e o custo de disponibilidade."
+    }
+  },
+  "dimerizacao": {
+    "horas_100pct": 5,
+    "nivel_madrugada": 0.5,
+    "fonte": "Perfil de telegestão: 100% do anoitecer até ~23h (maior circulação), depois 30% de base com elevação a 100% por presença (PIR); média equivalente adotada de 50% na madrugada, conforme estudos de dimerização adaptativa (ABNT NBR 5101 permite redução em horários de baixo tráfego)."
+  },
+  "matriz_decisao": {
+    "criterios": [
+      {"id": "custo", "nome": "Custo total em 10 anos", "peso": 0.30},
+      {"id": "energia", "nome": "Economia de energia da rede", "peso": 0.25},
+      {"id": "viabilidade", "nome": "Viabilidade técnica/operacional", "peso": 0.20},
+      {"id": "ambiental", "nome": "Impacto ambiental", "peso": 0.15},
+      {"id": "comunidade", "nome": "Benefício/resiliência para a comunidade", "peso": 0.10}
+    ],
+    "notas_qualitativas": {
+      "A0": {"viabilidade": 5, "ambiental": 1, "comunidade": 1},
+      "A1": {"viabilidade": 5, "ambiental": 3, "comunidade": 4},
+      "A2": {"viabilidade": 3, "ambiental": 3, "comunidade": 5},
+      "A3": {"viabilidade": 4, "ambiental": 5, "comunidade": 4}
+    },
+    "justificativa": {
+      "A0": "Já instalado, mas ineficiente, luz amarelada (IRC ~25) e descarte de lâmpadas com mercúrio/sódio.",
+      "A1": "Tecnologia madura, troca simples na mesma rede; LED sem mercúrio e com vida útil 2,5x maior.",
+      "A2": "Independe da rede e funciona em quedas de energia; porém exige proteção antifurto, sombreamento zero e baterias geram resíduo a cada ~8 anos.",
+      "A3": "Energia renovável sem baterias; depende de telhado público disponível e de trâmite com a distribuidora (autoconsumo remoto)."
+    }
+  }
+}
